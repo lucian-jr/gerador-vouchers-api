@@ -30,7 +30,7 @@ export const uploadPdfToS3 = async (fileName: string, pdfBuffer: Buffer) => {
         throw new Error("ERRO: AWS_BUCKET_NAME não definido no .env");
     }
 
-    const key = `vouchers/${fileName}`;
+    const key = fileName;
 
     const command = new PutObjectCommand({
         Bucket: bucketName,
