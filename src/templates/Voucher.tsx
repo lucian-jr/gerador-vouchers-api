@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: 'Helvetica-Bold',
     marginTop: 5,
+    textAlign: 'center'
   },
   footer: {
     marginTop: 10,
