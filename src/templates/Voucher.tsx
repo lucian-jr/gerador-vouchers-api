@@ -64,7 +64,9 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: 'Helvetica-Bold',
     marginTop: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#000',
+    lineHeight: 1.1,
   },
   footer: {
     marginTop: 10,
@@ -79,14 +81,20 @@ const styles = StyleSheet.create({
   }
 });
 
+const formatLongHash = (text: string) => {
+  if (!text) return '';
+  // Regex que pega blocos de 22 caracteres e adiciona uma quebra de linha
+  return text.match(/.{1,22}/g)?.join('\n') || text;
+};
+
 export const Voucher = ({ codigo, idProduto, qrCodeBase64, logoMceBase64, logoMusicParkBase64 }: VoucherProps) => {
-  
+
   // Lógica dos condicionais (Tradução do seu PHP)
   const isMusicPark = ![15, 16, 17].includes(idProduto);
-  
+
   const isCopoEco = [1, 13, 15, 16, 25, 26, 28, 30].includes(idProduto);
   const produtoNome = isCopoEco ? 'Copo Eco®' : 'Cartão Cashless';
-  
+
   let valor = 'R$ 10,00';
   if (idProduto === 15) valor = 'R$ 0,10';
   else if (idProduto === 16 || idProduto === 17) valor = 'R$ 15,00';
@@ -96,21 +104,21 @@ export const Voucher = ({ codigo, idProduto, qrCodeBase64, logoMceBase64, logoMu
       {/* Tamanho customizado: [largura, altura] em pontos (72pts = 1 polegada) */}
       {/* 200pt ~= 7cm de largura (papel térmico/celular) */}
       <Page size={[220, 450]} style={styles.page}>
-        
+
         {/* CABEÇALHO */}
         <View style={styles.header}>
           <View style={styles.logoContainer}>
-             {/* Note: React PDF baixa a imagem da URL na hora de gerar */}
-            <Image 
-              style={styles.logo} 
-              src={logoMceBase64} 
+            {/* Note: React PDF baixa a imagem da URL na hora de gerar */}
+            <Image
+              style={styles.logo}
+              src={logoMceBase64}
             />
           </View>
 
           {isMusicPark && (
             <View style={styles.logoContainer}>
-              <Image 
-                style={styles.logo} 
+              <Image
+                style={styles.logo}
                 src={logoMusicParkBase64}
               />
             </View>
@@ -136,7 +144,7 @@ export const Voucher = ({ codigo, idProduto, qrCodeBase64, logoMceBase64, logoMu
         {/* QR CODE E CÓDIGO */}
         <View style={styles.qrSection}>
           <Image src={qrCodeBase64} style={styles.qrImage} />
-          <Text style={styles.codeText}>{codigo}</Text>
+          <Text style={styles.codeText}>{formatLongHash(codigo)}</Text>
         </View>
 
         {/* RODAPÉ */}
