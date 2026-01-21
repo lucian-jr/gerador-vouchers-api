@@ -4,8 +4,9 @@ import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/
 // Definição das Props (os dados que variam)
 interface VoucherProps {
   codigo: string;
-  idProduto: number; // Substitui o $_GET['id_produto']
-  qrCodeBase64: string; // A imagem do QR Code gerada anteriormente
+  idProduto: number;
+  nomeProduto: string;
+  qrCodeBase64: string;
   logoMceBase64: string;
   logoMusicParkBase64: string;
 }
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     lineHeight: 1.1,
   },
   footer: {
-    marginTop: 10,
+    marginTop: 0,
     borderTopWidth: 1,
     borderTopColor: '#eee',
     paddingTop: 5,
@@ -83,21 +84,19 @@ const styles = StyleSheet.create({
 
 const formatLongHash = (text: string) => {
   if (!text) return '';
-  // Regex que pega blocos de 22 caracteres e adiciona uma quebra de linha
   return text.match(/.{1,22}/g)?.join('\n') || text;
 };
 
-export const Voucher = ({ codigo, idProduto, qrCodeBase64, logoMceBase64, logoMusicParkBase64 }: VoucherProps) => {
+export const Voucher = ({ codigo, idProduto, nomeProduto, qrCodeBase64, logoMceBase64, logoMusicParkBase64 }: VoucherProps) => {
 
-  // Lógica dos condicionais (Tradução do seu PHP)
   const isMusicPark = ![15, 16, 17].includes(idProduto);
 
-  const isCopoEco = [1, 13, 15, 16, 25, 26, 28, 30].includes(idProduto);
-  const produtoNome = isCopoEco ? 'Copo Eco®' : 'Cartão Cashless';
+  // const isCopoEco = [1, 13, 15, 16, 25, 26, 28, 30].includes(idProduto);
+  const produtoNome = nomeProduto || 'Caução';
 
   let valor = 'R$ 10,00';
-  if (idProduto === 15) valor = 'R$ 0,10';
-  else if (idProduto === 16 || idProduto === 17) valor = 'R$ 15,00';
+  // if (idProduto === 15) valor = 'R$ 0,10';
+  // else if (idProduto === 16 || idProduto === 17) valor = 'R$ 15,00';
 
   return (
     <Document>

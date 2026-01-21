@@ -74,6 +74,7 @@ app.post('/api/gerar-vouchers', async (req: Request, res: Response): Promise<any
           <Voucher 
             codigo={dados.codigo} 
             idProduto={dados.id_produto}
+            nomeProduto={dados.nome_produto}
             qrCodeBase64={qrCodeDataUrl}
             logoMceBase64={LOGO_MCE}
             logoMusicParkBase64={LOGO_PARK}
