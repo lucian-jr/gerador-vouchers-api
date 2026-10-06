@@ -8,7 +8,6 @@ interface VoucherProps {
   nomeProduto: string;
   qrCodeBase64: string;
   logoMceBase64: string;
-  logoMusicParkBase64: string;
 }
 
 const styles = StyleSheet.create({
@@ -87,9 +86,7 @@ const formatLongHash = (text: string) => {
   return text.match(/.{1,22}/g)?.join('\n') || text;
 };
 
-export const Voucher = ({ codigo, idProduto, nomeProduto, qrCodeBase64, logoMceBase64, logoMusicParkBase64 }: VoucherProps) => {
-
-  const isMusicPark = ![15, 16, 17].includes(idProduto);
+export const Voucher = ({ codigo, idProduto, nomeProduto, qrCodeBase64, logoMceBase64 }: VoucherProps) => {
 
   // const isCopoEco = [1, 13, 15, 16, 25, 26, 28, 30].includes(idProduto);
   const produtoNome = nomeProduto || 'Caução';
@@ -113,15 +110,6 @@ export const Voucher = ({ codigo, idProduto, nomeProduto, qrCodeBase64, logoMceB
               src={logoMceBase64}
             />
           </View>
-
-          {isMusicPark && (
-            <View style={styles.logoContainer}>
-              <Image
-                style={styles.logo}
-                src={logoMusicParkBase64}
-              />
-            </View>
-          )}
 
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>{produtoNome}</Text>

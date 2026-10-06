@@ -39,7 +39,6 @@ function carregarImagemLocal(nomeArquivo: string) {
 // 1. Pré-carrega as imagens UMA vez quando o servidor liga
 console.log('🔄 Pré-carregando imagens na memória...');
 const LOGO_MCE = carregarImagemLocal('logo-mce.png');
-const LOGO_PARK = carregarImagemLocal('logo-park.png');
 
 
 // --- ROTA DA API (Onde o Postman vai bater) ---
@@ -77,7 +76,6 @@ app.post('/api/gerar-vouchers', async (req: Request, res: Response): Promise<any
             nomeProduto={dados.nome_produto}
             qrCodeBase64={qrCodeDataUrl}
             logoMceBase64={LOGO_MCE}
-            logoMusicParkBase64={LOGO_PARK}
           />
         );
 
